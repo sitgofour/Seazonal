@@ -13,13 +13,30 @@ class FetchTest extends Component {
         }
         this.getWeather = this.getWeather.bind(this);
     }
+
+
     getWeather = async () => {
-        let url =  "api.openweathermap.org/data/2.5/weather?zip={90210},{}&appid={7518c30bdac34910fe5c37ce6a1c34b9}";
-        const data = await axios.get(url);
-        console.log("data:  " + data);
-        console.log("clicked");
-        this.setState({ temp: "super chill" });
+        // let url =  "api.openweathermap.org/data/2.5/weather?zip=91750,&appid=7518c30bdac34910fe5c37ce6a1c34b9";
+        let url = 'https://api.openweathermap.org/data/2.5/weather?zip=91750,&appid=7518c30bdac34910fe5c37ce6a1c34b9'
+        try{
+            console.log(axios.get);
+            console.log(url);
+            const response = await axios.get(url);
+            console.log(response.data);
+            const data = response.data;
+            this.setState({ 
+                cityName: data.name,
+                temp: data.main.temp,
+                message: `Looks like ${data.weather[0]["main"]} ` 
+            })
+        } catch (error) {
+            console.log("error here ev: " + error);
+        }
     }
+
+    // componentDidMount() {
+    //     this.getWeather();
+    // }
 
     render() {
 
@@ -39,6 +56,3 @@ class FetchTest extends Component {
 
  export default FetchTest;
 
-//  7518c30bdac34910fe5c37ce6a1c34b9
-
-//  api.openweathermap.org/data/2.5/weather?zip={90210},{}&appid={7518c30bdac34910fe5c37ce6a1c34b9}
