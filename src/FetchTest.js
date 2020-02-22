@@ -12,6 +12,7 @@ class FetchTest extends Component {
             message: "default message"
         }
         this.getWeather = this.getWeather.bind(this);
+        this.getRecipe = this.getRecipe.bind(this);
     }
 
 
@@ -31,6 +32,20 @@ class FetchTest extends Component {
             })
         } catch (error) {
             console.log("error here ev: " + error);
+        }
+        this.getRecipe();
+    }
+
+
+    getRecipe = async () => {
+        let url = 'https://api.spoonacular.com/recipes/search?query=pizza&number=3&apiKey=6c1757b500464204a46bc201200b492f';
+        try {
+            const response = await axios.get(url);
+            const recipes = response.data.results;
+            console.log(recipes);
+        }
+        catch(error) {
+            console.log("there was una error!!!" + error);
         }
     }
 
@@ -56,3 +71,10 @@ class FetchTest extends Component {
 
  export default FetchTest;
 
+
+
+ // 6c1757b500464204a46bc201200b492f
+
+ // ?apiKey=6c1757b500464204a46bc201200b492f
+
+ //  https://api.spoonacular.com/recipes/search?query=cheese&number=2&apiKey=6c1757b500464204a46bc201200b492f
