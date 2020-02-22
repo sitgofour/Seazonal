@@ -13,6 +13,7 @@ class FetchTest extends Component {
         }
         this.getWeather = this.getWeather.bind(this);
         this.getRecipe = this.getRecipe.bind(this);
+        this.getRecipeDetail = this.getRecipeDetail.bind(this);
     }
 
 
@@ -31,9 +32,23 @@ class FetchTest extends Component {
                 message: `Looks like ${data.weather[0]["main"]} ` 
             })
         } catch (error) {
-            console.log("error here ev: " + error);
+            console.log("error in getWeather: " + error);
         }
-        this.getRecipe();
+    }
+
+
+    getRecipeDetail = async (id) => {
+        let url = `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=6c1757b500464204a46bc201200b492f`;
+        
+        try {
+            const response = await axios.get(url);
+            let recipeDetails = response.data;
+            console.log(recipeDetails.title);
+
+        }
+        catch(error) {
+            console.log("err in getRecipeDetails: " + error);
+        }
     }
 
 
@@ -43,9 +58,11 @@ class FetchTest extends Component {
             const response = await axios.get(url);
             const recipes = response.data.results;
             console.log(recipes);
+            console.log("id here: " + recipes[0].id);
+            // this.getRecipeDetail(recipes[0].id);
         }
         catch(error) {
-            console.log("there was una error!!!" + error);
+            console.log("error in getRecipe: " + error);
         }
     }
 
