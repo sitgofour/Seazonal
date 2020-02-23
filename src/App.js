@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 import WeatherForm from "./WeatherForm.js";
+import RecipePreview from './RecipePreview';
 
 
 class App extends Component {
@@ -11,12 +12,14 @@ class App extends Component {
             cityName: "default name",
             temp: "default temp",
             message: "default message",
-            zipCode: null
+            zipCode: null,
+            activeRecipes: null
         }
         this.getWeather = this.getWeather.bind(this);
         this.getRecipe = this.getRecipe.bind(this);
         this.getRecipeDetail = this.getRecipeDetail.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.generateRecipePreviews = this.generateRecipePreviews.bind(this);
     }
 
     handleInputChange = (event) => {
@@ -75,8 +78,9 @@ class App extends Component {
         try {
             const response = await axios.get(url);
             const recipes = response.data.results;
-            console.log(recipes);
-            console.log("id here: " + recipes[0].id);
+            this.setState({
+                activeRecipes: recipes
+            });
             // this.getRecipeDetail(recipes[0].id);
         }
         catch(error) {
@@ -84,7 +88,20 @@ class App extends Component {
         }
     }
 
+    generateRecipePreviews = () => {
+        if(this.state.activeRecipes) {
+            console.log(this.state.activeRecipes);
+            let recipeList = this.state.activeRecipes.map(recipe => 
+                <RecipePreview title={recipe.title} id={recipe.id} key={recipe.id}/>
+            )
+            return recipeList;
+        } 
+    }
+    
+
     render() {
+        
+        
 
         return(
             <div className="App">
@@ -96,6 +113,9 @@ class App extends Component {
                     handleSubmit={this.getWeather}
                     handleInputChange={this.handleInputChange}
                 />
+                <div>
+                    {this.generateRecipePreviews()}
+                </div>
             </div>
         )
     }
