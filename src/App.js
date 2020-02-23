@@ -31,19 +31,17 @@ class App extends Component {
 
         let url = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode},&appid=7518c30bdac34910fe5c37ce6a1c34b9`
         try{
-            console.log(axios.get);
-            console.log(url);
             const response = await axios.get(url);
-            console.log(response.data);
             const data = response.data;
             this.setState({ 
                 cityName: data.name,
                 temp: data.main.temp,
                 message: `Looks like ${data.weather[0]["main"]} ` 
-            })
+            });
         } catch (error) {
             console.log("error in getWeather: " + error);
         }
+        this.getRecipe();
     }
 
 
@@ -61,9 +59,19 @@ class App extends Component {
         }
     }
 
+    defineRecipeQuery = () => {
+        if(this.state.temp > 285) {
+            console.log("defined as cold");
+            return "cold";
+        } else {
+            console.log("defined as hot");
+            return "hot";
+        }
+    }
 
     getRecipe = async () => {
-        let url = 'https://api.spoonacular.com/recipes/search?query=pizza&number=3&apiKey=6c1757b500464204a46bc201200b492f';
+        let recipeQuery = this.defineRecipeQuery();
+        let url = `https://api.spoonacular.com/recipes/search?query=${recipeQuery}&number=6&apiKey=6c1757b500464204a46bc201200b492f`;
         try {
             const response = await axios.get(url);
             const recipes = response.data.results;
@@ -75,10 +83,6 @@ class App extends Component {
             console.log("error in getRecipe: " + error);
         }
     }
-
-    // componentDidMount() {
-    //     this.getWeather();
-    // }
 
     render() {
 
