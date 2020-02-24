@@ -3,10 +3,11 @@ import './App.css';
 import axios from 'axios';
 import WeatherForm from "./WeatherForm.js";
 import RecipePreview from './RecipePreview.js';
+import RecipeDetail from './RecipeDetail.js';
 import WeatherInfo from './WeatherInfo.js';
 import NewOrMore from './NewOrMore.js';
 import { Fragment } from 'react';
-import NavBar from './NavBar';
+import NavBar from './NavBar.js';
 
 
 class App extends Component {
@@ -18,7 +19,9 @@ class App extends Component {
             message: "default message",
             zipCode: null,
             activeRecipes: null,
-            showForm: true
+            showForm: true,
+            showDetail: false,
+            recipeDetails: null
         }
         this.getWeather = this.getWeather.bind(this);
         this.getRecipe = this.getRecipe.bind(this);
@@ -70,10 +73,22 @@ class App extends Component {
         let url = `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=6c1757b500464204a46bc201200b492f`;
         
         try {
+            console.log("getRecipeDetail is firing!");
             const response = await axios.get(url);
             let recipeDetails = response.data;
-            console.log(recipeDetails.title);
-
+            for(const p in recipeDetails) {
+                console.log(p);
+            }
+            this.setState({
+                recipeDetails: {
+                    title: recipeDetails.title,
+                    summary: recipeDetails.summary,
+                    veggie: recipeDetails.vegetarian,
+                    sourceName: recipeDetails.sourceName,
+                    sourceUrl: recipeDetails.sourceUrl,
+                    cookTime: recipeDetails.readyInMinutes,
+                }
+            })
         }
         catch(error) {
             console.log("err in getRecipeDetails: " + error);
@@ -111,7 +126,7 @@ class App extends Component {
             console.log(this.state.activeRecipes);
             let recipeList = this.state.activeRecipes.map(recipe => 
                 <RecipePreview
-                    showRecipeDetail={this.showRecipeDetail} 
+                    getRecipeDetail={this.getRecipeDetail} 
                     title={recipe.title} 
                     id={recipe.id} 
                     key={recipe.id}/>
@@ -121,7 +136,19 @@ class App extends Component {
     }
 
     showRecipeDetail = (recipeId) => {
-        console.log("clicked recipe: " + recipeId);
+        if(this.state.recipeDetails) {
+            let recipe = this.state.recipeDetails;
+            return(
+                <RecipeDetail
+                    title={recipe.title}
+                    summary={recipe.summary}
+                    veggie={recipe.veggie}
+                    sourceName={recipe.sourceName}
+                    sourceUrl={recipe.sourceUrl}
+                    cookTime={recipe.readyInMinutes}
+                />
+            );
+        } 
     }
     
     showFormOrWeather = () => {
@@ -142,15 +169,15 @@ class App extends Component {
     }
 
     render() {
-        
-        
-
         return(
             <div className="App">
                 <NavBar />
                 {this.showFormOrWeather()}
                 <div>
                     {this.generateRecipePreviews()}
+                </div>
+                <div>
+                    {this.showRecipeDetail()}
                 </div>
             </div>
         )

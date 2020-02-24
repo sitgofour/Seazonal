@@ -7,7 +7,7 @@ class RecipePreview extends Component {
     }
 
     handleClick = () => {
-        this.props.showRecipeDetail(this.props.id);
+        this.props.getRecipeDetail(this.props.id);
     }
 
     render() {
