@@ -24,6 +24,7 @@ class App extends Component {
             showDetail: false,
             recipeDetails: null
         }
+        this.defaultState = this.state;
         this.getWeather = this.getWeather.bind(this);
         this.getRecipe = this.getRecipe.bind(this);
         this.getRecipeDetail = this.getRecipeDetail.bind(this);
@@ -43,6 +44,7 @@ class App extends Component {
 
     clickedNewLocation = () => {
         console.log("new location");
+        this.setState(this.defaultState);
     }
 
     clickedMoreRecipes = () => {
@@ -50,10 +52,9 @@ class App extends Component {
     }
 
     getWeather = async () => {
-        // let url =  "api.openweathermap.org/data/2.5/weather?zip=91750,&appid=7518c30bdac34910fe5c37ce6a1c34b9";
         let zipCode = parseInt(this.state.zipCode);
-
         let url = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode},&appid=7518c30bdac34910fe5c37ce6a1c34b9`
+
         try{
             const response = await axios.get(url);
             const data = response.data;
@@ -77,9 +78,7 @@ class App extends Component {
             console.log("getRecipeDetail is firing!");
             const response = await axios.get(url);
             let recipeDetails = response.data;
-            for(const p in recipeDetails) {
-                console.log(p);
-            }
+            
             this.setState({
                 recipeDetails: {
                     id: recipeDetails.id,
@@ -101,11 +100,9 @@ class App extends Component {
 
     defineRecipeQuery = () => {
         if(this.state.temp > 285) {
-            console.log("defined as cold");
             return "cold";
         } else {
-            console.log("defined as hot");
-            return "hot";
+            return "soup";
         }
     }
 
@@ -119,7 +116,6 @@ class App extends Component {
                 activeRecipes: recipes,
                 showPreviews: true
             });
-            // this.getRecipeDetail(recipes[0].id);
         }
         catch(error) {
             console.log("error in getRecipe: " + error);
@@ -191,14 +187,4 @@ class App extends Component {
     }
  }
 
-
-
  export default App;
-
-
-
- // 6c1757b500464204a46bc201200b492f
-
- // ?apiKey=6c1757b500464204a46bc201200b492f
-
- //  https://api.spoonacular.com/recipes/search?query=cheese&number=2&apiKey=6c1757b500464204a46bc201200b492f
