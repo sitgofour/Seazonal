@@ -19,6 +19,7 @@ class App extends Component {
             message: "default message",
             zipCode: null,
             activeRecipes: null,
+            showPreviews: false,
             showForm: true,
             showDetail: false,
             recipeDetails: null
@@ -81,13 +82,16 @@ class App extends Component {
             }
             this.setState({
                 recipeDetails: {
+                    id: recipeDetails.id,
+                    image: recipeDetails.image,
                     title: recipeDetails.title,
                     summary: recipeDetails.summary,
                     veggie: recipeDetails.vegetarian,
                     sourceName: recipeDetails.sourceName,
                     sourceUrl: recipeDetails.sourceUrl,
                     cookTime: recipeDetails.readyInMinutes,
-                }
+                },
+                showPreviews: false
             })
         }
         catch(error) {
@@ -112,7 +116,8 @@ class App extends Component {
             const response = await axios.get(url);
             const recipes = response.data.results;
             this.setState({
-                activeRecipes: recipes
+                activeRecipes: recipes,
+                showPreviews: true
             });
             // this.getRecipeDetail(recipes[0].id);
         }
@@ -122,7 +127,7 @@ class App extends Component {
     }
 
     generateRecipePreviews = () => {
-        if(this.state.activeRecipes) {
+        if(this.state.showPreviews) {
             console.log(this.state.activeRecipes);
             let recipeList = this.state.activeRecipes.map(recipe => 
                 <RecipePreview
@@ -140,7 +145,9 @@ class App extends Component {
             let recipe = this.state.recipeDetails;
             return(
                 <RecipeDetail
+                    id={recipe.id}
                     title={recipe.title}
+                    imageUrl={recipe.image}
                     summary={recipe.summary}
                     veggie={recipe.veggie}
                     sourceName={recipe.sourceName}
