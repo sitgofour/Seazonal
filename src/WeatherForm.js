@@ -6,6 +6,7 @@ class WeatherForm extends Component {
     render() {
         return ( 
             <div className="WeatherForm-wrapper">
+            <div><h4>Enter your location</h4></div>
             <div className="WeatherForm-input">
                 <input onChange={this.props.handleInputChange}></input>
             </div>

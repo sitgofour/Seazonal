@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 
 class RecipePreview extends Component {
+    constructor(props) {
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick = () => {
+        this.props.showRecipeDetail(this.props.id);
+    }
 
     render() {
         let imageUrl = `https://spoonacular.com/recipeImages/${this.props.id}-480x360.jpg`;
 
         return(
-            <div className="RecipePreview-wrapper">
+            <div onClick={this.handleClick} className="RecipePreview-wrapper">
                 <div className="recipe-image">
                     <img src={imageUrl} alt={this.props.title}></img>
                 </div>

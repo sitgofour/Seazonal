@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 import WeatherForm from "./WeatherForm.js";
-import RecipePreview from './RecipePreview';
+import RecipePreview from './RecipePreview.js';
+import WeatherInfo from './WeatherInfo.js';
+import NewOrMore from './NewOrMore.js';
+import { Fragment } from 'react';
+import NavBar from './NavBar';
 
 
 class App extends Component {
@@ -13,19 +17,32 @@ class App extends Component {
             temp: "default temp",
             message: "default message",
             zipCode: null,
-            activeRecipes: null
+            activeRecipes: null,
+            showForm: true
         }
         this.getWeather = this.getWeather.bind(this);
         this.getRecipe = this.getRecipe.bind(this);
         this.getRecipeDetail = this.getRecipeDetail.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.generateRecipePreviews = this.generateRecipePreviews.bind(this);
+        this.showFormOrWeather = this.showFormOrWeather.bind(this);
+        this.clickedNewLocation = this.clickedNewLocation.bind(this);
+        this.clickedMoreRecipes = this.clickedMoreRecipes.bind(this);
+        this.showRecipeDetail = this.showRecipeDetail.bind(this);
     }
 
     handleInputChange = (event) => {
         this.setState({
             zipCode: event.target.value
         });
+    }
+
+    clickedNewLocation = () => {
+        console.log("new location");
+    }
+
+    clickedMoreRecipes = () => {
+        console.log("clicked more recipes");
     }
 
     getWeather = async () => {
@@ -39,7 +56,8 @@ class App extends Component {
             this.setState({ 
                 cityName: data.name,
                 temp: data.main.temp,
-                message: `Looks like ${data.weather[0]["main"]} ` 
+                message: `Looks like ${data.weather[0]["main"]} `,
+                showForm: false 
             });
         } catch (error) {
             console.log("error in getWeather: " + error);
@@ -92,12 +110,36 @@ class App extends Component {
         if(this.state.activeRecipes) {
             console.log(this.state.activeRecipes);
             let recipeList = this.state.activeRecipes.map(recipe => 
-                <RecipePreview title={recipe.title} id={recipe.id} key={recipe.id}/>
+                <RecipePreview
+                    showRecipeDetail={this.showRecipeDetail} 
+                    title={recipe.title} 
+                    id={recipe.id} 
+                    key={recipe.id}/>
             )
             return recipeList;
         } 
     }
+
+    showRecipeDetail = (recipeId) => {
+        console.log("clicked recipe: " + recipeId);
+    }
     
+    showFormOrWeather = () => {
+        let {cityName, temp, message} = this.state;
+        if(this.state.showForm) {
+            return <WeatherForm 
+                    handleSubmit={this.getWeather}
+                    handleInputChange={this.handleInputChange}
+                    />
+        } else {
+            return (
+                <Fragment>
+                    <WeatherInfo cityName={cityName} temp={temp} message={message}/>
+                    <NewOrMore clickedNewLocation={this.clickedNewLocation} clickedMoreRecipes={this.clickedMoreRecipes}/> 
+                </Fragment>
+            );
+        }
+    }
 
     render() {
         
@@ -105,14 +147,8 @@ class App extends Component {
 
         return(
             <div className="App">
-                <h1>Seazonal</h1>
-                <h2>{this.state.cityName}</h2>
-                <h3>{this.state.temp}</h3>
-                <h3>{this.state.message}</h3>
-                <WeatherForm 
-                    handleSubmit={this.getWeather}
-                    handleInputChange={this.handleInputChange}
-                />
+                <NavBar />
+                {this.showFormOrWeather()}
                 <div>
                     {this.generateRecipePreviews()}
                 </div>
