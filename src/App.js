@@ -34,6 +34,7 @@ class App extends Component {
         this.clickedNewLocation = this.clickedNewLocation.bind(this);
         this.clickedMoreRecipes = this.clickedMoreRecipes.bind(this);
         this.showRecipeDetail = this.showRecipeDetail.bind(this);
+        this.backToResults = this.backToResults.bind(this);
     }
 
     handleInputChange = (event) => {
@@ -49,6 +50,13 @@ class App extends Component {
 
     clickedMoreRecipes = () => {
         console.log("clicked more recipes");
+    }
+
+    backToResults = () => {
+        this.setState({
+            recipeDetails: false,
+            showPreviews: true
+        });
     }
 
     getWeather = async () => {
@@ -136,7 +144,7 @@ class App extends Component {
         } 
     }
 
-    showRecipeDetail = (recipeId) => {
+    showRecipeDetail = () => {
         if(this.state.recipeDetails) {
             let recipe = this.state.recipeDetails;
             return(
@@ -149,6 +157,7 @@ class App extends Component {
                     sourceName={recipe.sourceName}
                     sourceUrl={recipe.sourceUrl}
                     cookTime={recipe.readyInMinutes}
+                    back={this.backToResults}
                 />
             );
         } 
