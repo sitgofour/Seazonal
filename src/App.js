@@ -17,6 +17,7 @@ class App extends Component {
             cityName: "default name",
             temp: "default temp",
             message: "default message",
+            icon: "",
             zipCode: null,
             activeRecipes: null,
             showPreviews: false,
@@ -70,6 +71,7 @@ class App extends Component {
                 cityName: data.name,
                 temp: data.main.temp,
                 message: `Looks like ${data.weather[0]["main"]} `,
+                icon: data.weather[0]["icon"],
                 showForm: false 
             });
         } catch (error) {
@@ -164,7 +166,7 @@ class App extends Component {
     }
     
     showFormOrWeather = () => {
-        let {cityName, temp, message} = this.state;
+        let {cityName, temp, message, icon} = this.state;
         if(this.state.showForm) {
             return <WeatherForm 
                     handleSubmit={this.getWeather}
@@ -173,7 +175,7 @@ class App extends Component {
         } else {
             return (
                 <Fragment>
-                    <WeatherInfo cityName={cityName} temp={temp} message={message}/>
+                    <WeatherInfo cityName={cityName} temp={temp} message={message} iconId={icon}/>
                     <NewOrMore clickedNewLocation={this.clickedNewLocation} clickedMoreRecipes={this.clickedMoreRecipes}/> 
                 </Fragment>
             );
