@@ -189,7 +189,7 @@ class App extends Component {
                 <div>
                     {this.showFormOrWeather()}
                 </div>
-                <div>
+                <div className="recipe-previews">
                     {this.generateRecipePreviews()}
                 </div>
                 <div>

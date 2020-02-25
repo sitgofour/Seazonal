@@ -4,3 +4,10 @@
   align-items: center;
   text-align: center;
 }
+
+.recipe-previews {
+  width: 95%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
