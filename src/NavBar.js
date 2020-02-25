@@ -4,7 +4,10 @@ import React from 'react';
 const NavBar = () => {
 
     const navStyle = {
-        backgroundColor: "orange",
+        alignSelf: "flex-start",
+        width: "100%",
+        backgroundColor: "rgba(100, 0, 0, 1)",
+        color: "white",
         display: "flex",
     }
 

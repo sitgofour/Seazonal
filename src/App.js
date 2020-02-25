@@ -70,7 +70,7 @@ class App extends Component {
             this.setState({ 
                 cityName: data.name,
                 temp: data.main.temp,
-                message: `Looks like ${data.weather[0]["main"]} `,
+                message: data.weather[0]["main"],
                 icon: data.weather[0]["icon"],
                 showForm: false 
             });
@@ -186,7 +186,9 @@ class App extends Component {
         return(
             <div className="App">
                 <NavBar />
-                {this.showFormOrWeather()}
+                <div>
+                    {this.showFormOrWeather()}
+                </div>
                 <div>
                     {this.generateRecipePreviews()}
                 </div>
