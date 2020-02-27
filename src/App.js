@@ -62,7 +62,7 @@ class App extends Component {
 
     getWeather = async () => {
         let zipCode = parseInt(this.state.zipCode);
-        let url = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode},&appid=7518c30bdac34910fe5c37ce6a1c34b9`
+        let url = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode},&appid=${process.env.REACT_APP_WEATHER}`
 
         try{
             const response = await axios.get(url);
