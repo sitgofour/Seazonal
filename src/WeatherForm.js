@@ -7,7 +7,7 @@ class WeatherForm extends Component {
 
         const formWrapper = {
             color: "white",
-            backgroundColor: "rgba(100, 100, 100, .5)",
+            backgroundColor: "rgba(60, 137, 109, .6)",
             margin: "5em 3em",
             width: "500px",
             padding: "2em",
@@ -16,14 +16,15 @@ class WeatherForm extends Component {
         }
 
         const formInputStyle = {
-            width: "33%",
+            width: "20%",
             height: "1.4em",
             fontSize: "18px"
         }
 
         const formButtonStyle = {
-            background: "rgba(100, 0, 0, .5)",
-            color: "white",
+            cursor: "pointer",
+            background: "rgba(112, 46, 62, .7)",
+            color: "#f5fffa",
             width: "25%",
             fontSize: "18px",
             marginTop: "1em",
@@ -37,7 +38,7 @@ class WeatherForm extends Component {
                     <input onChange={this.props.handleInputChange} style={formInputStyle}></input>
                 </div>
                 <div>
-                    <button onClick={this.props.handleSubmit} style={formButtonStyle}>Click</button>
+                    <button onClick={this.props.handleSubmit} style={formButtonStyle}>Search</button>
                 </div>
             </div>
         )

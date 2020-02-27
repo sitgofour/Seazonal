@@ -8,13 +8,16 @@ class WeatherInfo extends Component {
         let tempInF = `${Math.round(((this.props.temp - 273.15) * 9/5) + 32)}°`;
 
         const weatherInfo = {
+            letterSpacing: "10px",
+            fontSize: "18px",
             display: "flex",
             justifyContent: "center",
-            alignItems: "center"
+            alignItems: "center",
+            flexWrap: "wrap"
         }
         const weatherItem = {
-            margin: "1em",
-            backgroundColor: "rgba(0, 0, 0, .7)",
+            margin: ".4em",
+            backgroundColor: "rgba(79, 178, 134, .9)",
             color: "white",
             padding: ".8em",
             borderRadius: "10px"
@@ -22,7 +25,7 @@ class WeatherInfo extends Component {
 
         const weatherIconDiv = {
             margin: "1em",
-            backgroundColor: "rgba(0, 0, 0, .7)",
+            backgroundColor: "rgba(79, 178, 134, .9)",
             color: "white",
             padding: "0 .8em",
             borderRadius: "10px",
@@ -36,13 +39,12 @@ class WeatherInfo extends Component {
 
         return(
             <div style={weatherInfo}>
-                <h3 style={weatherItem}>{this.props.cityName}</h3>
-                <h2 style={weatherItem}>{tempInF}</h2>
                 <div style={weatherIconDiv}>
                     <img src={iconUrl} alt={this.props.message} style={iconItemStyle}></img>
                     <h3 style={iconItemStyle}>{this.props.message}</h3> 
                 </div>
-              
+                <h3 style={weatherItem}>{this.props.cityName}</h3>
+                <h2 style={weatherItem}>{tempInF}</h2>
             </div>
         )
     }

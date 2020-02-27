@@ -19,20 +19,24 @@ class RecipePreview extends Component {
             justifyContent: "space-evenly",
             alignItems: "center",
             maxWidth: "30%",
-            backgroundColor: "grey",
+            backgroundColor: "rgba(80, 255, 177, .8)",
             padding: "10px",
-            margin: "2rem"
+            margin: "2rem",
+            borderRadius: "7px"
         }
 
         const recipeImage = {
             width: "80%",
+            border: "10px solid rgba(112, 46, 62, .9)",
             borderRadius: "10px",
             marginTop: "10px"
         }
 
         const recipeMoreButton = {
-            backgroundColor: "white",
-            padding: "8px",
+            cursor: "pointer",
+            backgroundColor: "rgba(60, 137, 109, 1)",
+            color: "#f5fffa",
+            padding: "2px 5px",
             textTransform: "uppercase",
             fontSize: "16px",
             borderRadius: "5px"

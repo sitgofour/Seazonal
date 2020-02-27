@@ -6,8 +6,8 @@ const NavBar = () => {
     const navStyle = {
         alignSelf: "flex-start",
         width: "100%",
-        backgroundColor: "rgba(100, 0, 0, 1)",
-        color: "white",
+        backgroundColor: "rgba(112, 46, 62, .95)",
+        color: "#f5fffa",
         display: "flex",
     }
 
@@ -18,7 +18,9 @@ const NavBar = () => {
 
     return (
         <div style={navStyle}>
-            <h1 style={navTitle}>Seazonal</h1>
+            <a href="/" style={{textDecoration: "none", color: "#f5fffa"}}>
+                <h1 style={navTitle}>Seazonal</h1>
+            </a>
         </div>
     )
 }

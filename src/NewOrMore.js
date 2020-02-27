@@ -6,7 +6,6 @@ class NewOrMore extends Component {
         const buttonWrapper = {
             display: "flex",
             justifyContent: "center",
-            backgroundColor: "red"
         }
 
         const buttonDiv = {
@@ -14,23 +13,27 @@ class NewOrMore extends Component {
         }
 
         const buttonStyle = {
+            cursor: "pointer",
+            fontFamily: "inherit",
+            letterSpacing: ".3px",
             padding: ".8em 1.5em",
-            fontSize: "16px",
+            fontSize: "20px",
             textDecoration: "none",
             border: "none",
-            backgroundColor: "black",
-            color: "white",
-            borderRadius: "5px"
+            backgroundColor: "rgba(60, 137, 109, .95)",
+            color: "#f5fffa",
+            borderRadius: "5px",
+            textTransform: "uppercase"
         }
 
         return(
             <div style={buttonWrapper}>
                 <div style={buttonDiv}>
-                    <button onClick={this.props.clickedNewLocation} style={buttonStyle}>Search New Location</button>
+                    <button onClick={this.props.clickedNewLocation} style={buttonStyle}>New Search</button>
                 </div>
-                <div style={buttonDiv}>
+                {/* <div style={buttonDiv}>
                     <button onClick={this.props.clickedMoreRecipes} style={buttonStyle}>More Recipes</button>
-                </div>
+                </div> */}
             </div>
         )
     }
