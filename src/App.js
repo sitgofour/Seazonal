@@ -118,7 +118,7 @@ class App extends Component {
 
     getRecipe = async () => {
         let recipeQuery = this.defineRecipeQuery();
-        let url = `https://api.spoonacular.com/recipes/search?query=${recipeQuery}&number=6&apiKey=6c1757b500464204a46bc201200b492f`;
+        let url = `https://api.spoonacular.com/recipes/search?query=${recipeQuery}&number=6&apiKey=${process.env.REACT_APP_SPOON}`;
         try {
             const response = await axios.get(url);
             const recipes = response.data.results;
