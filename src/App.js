@@ -82,7 +82,7 @@ class App extends Component {
 
 
     getRecipeDetail = async (id) => {
-        let url = `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=6c1757b500464204a46bc201200b492f`;
+        let url = `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=${process.env.REACT_APP_SPOON}`;
         
         try {
             console.log("getRecipeDetail is firing!");
