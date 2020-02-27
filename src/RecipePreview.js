@@ -19,6 +19,7 @@ class RecipePreview extends Component {
             justifyContent: "space-evenly",
             alignItems: "center",
             maxWidth: "30%",
+            minWidth: "250px",
             backgroundColor: "rgba(80, 255, 177, .8)",
             padding: "10px",
             margin: "2rem",

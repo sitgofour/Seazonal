@@ -22,6 +22,7 @@ class RecipeDetail extends Component {
         }
 
         const recipeImage = {
+            width: "90%",
             border: "10px solid rgba(112, 46, 62, .9)",
             borderRadius: "5px",
         }
