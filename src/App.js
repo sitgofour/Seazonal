@@ -8,6 +8,7 @@ import WeatherInfo from './WeatherInfo.js';
 import NewOrMore from './NewOrMore.js';
 import { Fragment } from 'react';
 import NavBar from './NavBar.js';
+import GenerateQuery from './GenerateQuery.js';
 
 
 class App extends Component {
@@ -62,7 +63,7 @@ class App extends Component {
 
     getWeather = async () => {
         let zipCode = parseInt(this.state.zipCode);
-        let url = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode},&appid=${process.env.REACT_APP_WEATHER}`
+        let url = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode},&appid=${process.env.REACT_APP_WEATHER}`;
 
         try{
             const response = await axios.get(url);
@@ -108,17 +109,22 @@ class App extends Component {
         }
     }
 
-    defineRecipeQuery = () => {
-        if(this.state.temp > 285) {
-            return "cold";
-        } else {
-            return "soup";
-        }
-    }
+    // defineRecipeQuery = () => {
+    //     if(this.state.temp > 285) {
+    //         return "cold";
+    //     } else {
+    //         return "soup";
+    //     }
+    // }
+
 
     getRecipe = async () => {
-        let recipeQuery = this.defineRecipeQuery();
+        // let recipeQuery = this.defineRecipeQuery();
+        let tempF = Math.round(((this.props.temp - 273.15) * 9/5) + 32);
+        let recipeQuery = GenerateQuery(tempF);
+
         let url = `https://api.spoonacular.com/recipes/search?query=${recipeQuery}&number=6&apiKey=${process.env.REACT_APP_SPOON}`;
+
         try {
             const response = await axios.get(url);
             const recipes = response.data.results;
