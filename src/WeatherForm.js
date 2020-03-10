@@ -31,9 +31,14 @@ class WeatherForm extends Component {
             padding: ".5em",
         }
 
+        const subText = {
+            fontSize: ".8em"
+        }
+
         return ( 
             <div style={formWrapper}>
                 <div><h4>Enter your Zip Code</h4></div>
+                <div style={subText}><p>We'll recommend a recipe based on your local weather</p></div>
                 <div>
                     <input onChange={this.props.handleInputChange} style={formInputStyle}></input>
                 </div>
