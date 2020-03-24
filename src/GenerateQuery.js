@@ -3,7 +3,6 @@ import {coldFoods, neutralFoods, hotFoods} from './Foods.js';
 
 
 const GenerateQuery = (temp) => {
-    console.log(temp);
     if(temp <= 65) {
         let randIndex =  Math.floor(Math.random() * hotFoods.length);
         return coldFoods[randIndex];

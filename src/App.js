@@ -109,17 +109,7 @@ class App extends Component {
         }
     }
 
-    // defineRecipeQuery = () => {
-    //     if(this.state.temp > 285) {
-    //         return "cold";
-    //     } else {
-    //         return "soup";
-    //     }
-    // }
-
-
     getRecipe = async () => {
-        // let recipeQuery = this.defineRecipeQuery();
         let tempF = Math.round(((this.state.temp - 273.15) * 9/5) + 32);
         let recipeQuery = GenerateQuery(tempF);
 
@@ -140,7 +130,6 @@ class App extends Component {
 
     generateRecipePreviews = () => {
         if(this.state.showPreviews) {
-            console.log(this.state.activeRecipes);
             let recipeList = this.state.activeRecipes.map(recipe => 
                 <RecipePreview
                     getRecipeDetail={this.getRecipeDetail} 
