@@ -121,6 +121,7 @@ class App extends Component {
     getRecipe = async () => {
         // let recipeQuery = this.defineRecipeQuery();
         let tempF = Math.round(((this.props.temp - 273.15) * 9/5) + 32);
+        console.log(tempF);
         let recipeQuery = GenerateQuery(tempF);
 
         let url = `https://api.spoonacular.com/recipes/search?query=${recipeQuery}&number=6&apiKey=${process.env.REACT_APP_SPOON}`;
